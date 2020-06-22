@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var spAnswer = function (input) {
     var question = {
-        text: "",
+        text: (input.question && input.question.text) || "",
     };
     var answersCount = input.answers.length;
     var answers = [];

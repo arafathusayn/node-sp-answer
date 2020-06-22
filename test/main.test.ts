@@ -85,6 +85,14 @@ describe("spAnswer", () => {
 
     expect(result && result.positive).toBe(true);
   });
+
+  test(`Return empty string for question.text if question is not provided in args`, () => {
+    const result = spAnswer({
+      answers: [{ positive: true, popular: true }],
+    });
+
+    expect(result && result.question && result.question.text).toBe("");
+  });
 });
 
 function getAnswersForPhiladelphiaQuestion(): Answer[] {

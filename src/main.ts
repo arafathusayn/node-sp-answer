@@ -12,7 +12,7 @@ const spAnswer = (input: {
   threshold?: number;
 }): SurprisinglyPopularAnswer | null => {
   let question: Question = {
-    text: "",
+    text: (input.question && input.question.text) || "",
   };
   const answersCount = input.answers.length;
   let answers: Answer[] = [];
