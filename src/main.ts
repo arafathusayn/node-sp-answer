@@ -82,3 +82,4 @@ const spAnswer = (input: {
 };
 
 module.exports = spAnswer;
+export default spAnswer;

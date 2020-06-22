@@ -66,6 +66,7 @@ var spAnswer = function (input) {
     return result;
 };
 module.exports = spAnswer;
+exports.default = spAnswer;
 
 },{}]},{},[1])(1)
 });
