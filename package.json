@@ -1,0 +1,36 @@
+{
+  "name": "sp-answer",
+  "version": "0.0.1",
+  "description": "Determine the surprisingly popular answer",
+  "main": "dist/main.min.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "browserify": "^16.5.1",
+    "jest": "^26.0.1",
+    "terser": "^4.8.0",
+    "ts-jest": "^26.1.1",
+    "tsify": "^4.0.2",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build": "tsc && terser --compress --mangle -o dist/main.min.js dist/main.js && npm run build:browser",
+    "build:browser": "browserify -s spAnswer src/main.ts -p [ tsify ] > dist/sp-answer.js && terser --compress --mangle -o dist/sp-answer.min.js dist/sp-answer.js",
+    "test": "jest --config jestconfig.json",
+    "coverage": "jest --config jestconfig.json --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/arafathusayn/node-sp-answer.git"
+  },
+  "keywords": [
+    "Surprisingly",
+    "popular"
+  ],
+  "author": "Arafat Husayn <hello@arafat.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arafathusayn/node-sp-answer/issues"
+  },
+  "homepage": "https://github.com/arafathusayn/node-sp-answer#readme"
+}

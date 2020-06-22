@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sp-answer</title>
+  </head>
+  <body>
+    <script src="sp-answer.min.js"></script>
+    <script>
+      alert(
+        JSON.stringify(
+          spAnswer({
+            answers: [{ positive: true, popular: true }],
+          }),
+        ),
+      );
+    </script>
+  </body>
+</html>
