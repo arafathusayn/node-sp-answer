@@ -2,7 +2,8 @@
   "name": "sp-answer",
   "version": "0.0.1",
   "description": "Determine the surprisingly popular answer",
-  "main": "dist/main.min.js",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.0",
@@ -14,7 +15,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "build": "tsc && terser --compress --mangle -o dist/main.min.js dist/main.js && npm run build:browser",
+    "build": "tsc --declaration && npm run build:browser",
     "build:browser": "browserify -s spAnswer src/main.ts -p [ tsify ] > dist/sp-answer.js && terser --compress --mangle -o dist/sp-answer.min.js dist/sp-answer.js",
     "test": "jest --config jestconfig.json",
     "coverage": "jest --config jestconfig.json --coverage"
