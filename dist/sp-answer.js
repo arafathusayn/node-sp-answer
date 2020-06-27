@@ -76,7 +76,7 @@ var spAnswer = function (input) {
         return typeof answer.positive !== "string" ||
             typeof answer.popular !== "string";
     })) {
-        var rightAnswerdistribution = answers.reduce(function (acc, current) {
+        var rightAnswerDistribution = answers.reduce(function (acc, current) {
             var key = (current.positive && current.positive.toString()) || "";
             if (typeof acc[key] == "undefined") {
                 acc[key] = 1;
@@ -86,7 +86,7 @@ var spAnswer = function (input) {
             }
             return acc;
         }, {});
-        var popularAnswerdistribution = answers.reduce(function (acc, current) {
+        var popularAnswerDistribution = answers.reduce(function (acc, current) {
             var key = (current.popular && current.popular.toString()) || "";
             if (typeof acc[key] == "undefined") {
                 acc[key] = 1;
@@ -97,22 +97,20 @@ var spAnswer = function (input) {
             return acc;
         }, {});
         var score = {};
-        for (var key in rightAnswerdistribution) {
-            if (key &&
-                rightAnswerdistribution[key] &&
-                popularAnswerdistribution[key]) {
-                score = __assign(__assign({}, score), (_a = {}, _a[key] = rightAnswerdistribution[key] - popularAnswerdistribution[key], _a));
-            }
-            else {
+        for (var key in popularAnswerDistribution) {
+            if (key === "") {
                 return null;
             }
+        }
+        for (var key in rightAnswerDistribution) {
+            if (key === "") {
+                return null;
+            }
+            score = __assign(__assign({}, score), (_a = {}, _a[key] = rightAnswerDistribution[key] - (popularAnswerDistribution[key] || 0), _a));
         }
         var positives = [];
         for (var answer in score) {
             for (var otherAnswer in score) {
-                if (answer === otherAnswer) {
-                    continue;
-                }
                 var diff = score[answer] - score[otherAnswer];
                 if (diff >= threshold) {
                     positives.push({ answer: answer, diff: diff });
@@ -120,18 +118,16 @@ var spAnswer = function (input) {
             }
         }
         var max_1 = Math.max.apply(Math, positives.map(function (x) { return x.diff; }));
-        var sameScoreAnswers = positives
-            .filter(function (x) { return x && x.diff === max_1; })
-            .map(function (x) { return x && x.answer; });
-        if (sameScoreAnswers.length === 1) {
+        var derivedAnswers = Array.from(new Set(positives.filter(function (x) { return x && x.diff === max_1; }).map(function (x) { return x && x.answer; })));
+        if (derivedAnswers.length === 1) {
             return {
-                answer: sameScoreAnswers[0],
+                answer: derivedAnswers[0],
                 question: question,
             };
         }
         else {
             return {
-                answer: sameScoreAnswers,
+                answer: derivedAnswers,
                 question: question,
             };
         }

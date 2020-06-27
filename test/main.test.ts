@@ -171,6 +171,40 @@ describe("spAnswer", () => {
 
     expect(result && result.answer).toStrictEqual(options);
   });
+
+  test(`Sets popular score 0 if an answer has no popular vote.`, () => {
+    let answers: Answer[] = [
+      {
+        positive: "A",
+        popular: "A",
+      },
+      {
+        positive: "B",
+        popular: "A",
+      },
+    ];
+
+    let result = spAnswer({ answers });
+
+    expect(result && result.answer).toStrictEqual("B");
+  });
+
+  test(`Sets positive score 0 if an answer has no positive vote.`, () => {
+    let answers: Answer[] = [
+      {
+        positive: "A",
+        popular: "B",
+      },
+      {
+        positive: "A",
+        popular: "C",
+      },
+    ];
+
+    let result = spAnswer({ answers });
+
+    expect(result && result.answer).toStrictEqual("A");
+  });
 });
 
 function getAnswersForPhiladelphiaQuestion(): Answer[] {

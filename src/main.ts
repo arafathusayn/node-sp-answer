@@ -81,7 +81,7 @@ const spAnswer = (input: {
         typeof answer.popular !== "string",
     )
   ) {
-    const rightAnswerdistribution = answers.reduce<{ [key: string]: number }>(
+    const rightAnswerDistribution = answers.reduce<{ [key: string]: number }>(
       (acc: { [key: string]: number }, current: Answer) => {
         const key = (current.positive && current.positive.toString()) || "";
 
@@ -96,7 +96,7 @@ const spAnswer = (input: {
       {},
     );
 
-    const popularAnswerdistribution = answers.reduce<{ [key: string]: number }>(
+    const popularAnswerDistribution = answers.reduce<{ [key: string]: number }>(
       (acc: { [key: string]: number }, current: Answer) => {
         const key = (current.popular && current.popular.toString()) || "";
 
@@ -113,29 +113,34 @@ const spAnswer = (input: {
 
     let score: { [key: string]: number } = {};
 
-    for (const key in rightAnswerdistribution) {
-      if (
-        key &&
-        rightAnswerdistribution[key] &&
-        popularAnswerdistribution[key]
-      ) {
-        score = {
-          ...score,
-          [key]: rightAnswerdistribution[key] - popularAnswerdistribution[key],
-        };
-      } else {
+    for (const key in popularAnswerDistribution) {
+      if (key === "") {
         return null;
       }
+
+      score = {
+        ...score,
+        [key]:
+          (rightAnswerDistribution[key] || 0) - popularAnswerDistribution[key],
+      };
+    }
+
+    for (const key in rightAnswerDistribution) {
+      if (key === "") {
+        return null;
+      }
+
+      score = {
+        ...score,
+        [key]:
+          rightAnswerDistribution[key] - (popularAnswerDistribution[key] || 0),
+      };
     }
 
     let positives: { answer: string; diff: number }[] = [];
 
     for (const answer in score) {
       for (const otherAnswer in score) {
-        if (answer === otherAnswer) {
-          continue;
-        }
-
         const diff = score[answer] - score[otherAnswer];
 
         if (diff >= threshold) {
@@ -146,18 +151,20 @@ const spAnswer = (input: {
 
     const max = Math.max(...positives.map((x) => x.diff));
 
-    const sameScoreAnswers = positives
-      .filter((x) => x && x.diff === max)
-      .map((x) => x && x.answer);
+    const derivedAnswers = Array.from(
+      new Set(
+        positives.filter((x) => x && x.diff === max).map((x) => x && x.answer),
+      ),
+    );
 
-    if (sameScoreAnswers.length === 1) {
+    if (derivedAnswers.length === 1) {
       return {
-        answer: sameScoreAnswers[0],
+        answer: derivedAnswers[0],
         question,
       };
     } else {
       return {
-        answer: sameScoreAnswers,
+        answer: derivedAnswers,
         question,
       };
     }
