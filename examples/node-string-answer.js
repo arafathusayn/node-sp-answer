@@ -4,21 +4,18 @@ const spAnswer = require("../dist/main"); // replace with the comment above
 let answers = [];
 
 for (let i = 0; i < 100; i++) {
-  let answer = {
-    positive: true,
-    popular: true,
-  };
+  let answer = {};
 
   if (i < 65) {
-    answer.positive = true;
+    answer.positive = "yes";
   } else {
-    answer.positive = false;
+    answer.positive = "no";
   }
 
   if (i < 75) {
-    answer.popular = true;
+    answer.popular = "yes";
   } else {
-    answer.popular = false;
+    answer.popular = "no";
   }
 
   answers.push(answer);
@@ -34,7 +31,7 @@ const result = spAnswer({
 console.log(result);
 /*
   {
-    answer: false,
+    answer: "no",
     question: { text: 'Is Philadelphia the capital of Pennsylvania?' }
   }
 */
