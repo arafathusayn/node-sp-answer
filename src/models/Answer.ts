@@ -1,6 +1,6 @@
 interface Answer {
-  positive: boolean;
-  popular: boolean;
+  positive: boolean | string;
+  popular: boolean | string;
 }
 
 export default Answer;

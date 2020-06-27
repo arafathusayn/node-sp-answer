@@ -1,7 +1,7 @@
 import Answer from "./models/Answer";
 import Question from "./models/Question";
 interface SurprisinglyPopularAnswer {
-    positive: boolean;
+    answer: boolean | string | string[];
     question?: Question;
 }
 declare const spAnswer: (input: {
