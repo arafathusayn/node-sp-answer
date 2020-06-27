@@ -61,5 +61,5 @@ for (let i = 0; i < 100; i++) {
 }
 
 const result = spAnswer({ answers });
-// result.positive === false
+// result.answer === false
 ```
