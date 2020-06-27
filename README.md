@@ -21,12 +21,12 @@ interface Question {
 }
 
 interface Answer {
-  positive: boolean;
-  popular: boolean;
+  positive: boolean | string;
+  popular: boolean | string;
 }
 
 interface SurprisinglyPopularAnswer {
-  positive: boolean;
+  answer: boolean | string | string[];
   question?: Question; // optional
 }
 ```
