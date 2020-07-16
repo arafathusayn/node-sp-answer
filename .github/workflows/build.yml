@@ -21,9 +21,3 @@ jobs:
       
       - name: npm run build
         run: npm run build
-      
-      - name: npm run coverage
-        run: npm run coverage
-      
-      - name: codecov
-        uses: codecov/codecov-action@v1.0.10
